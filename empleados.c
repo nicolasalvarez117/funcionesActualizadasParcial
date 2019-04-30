@@ -387,8 +387,8 @@ void cargarMenu(eMenues arrayMenues[],int cantidadMenues,int valorOcupado,int ma
     char auxMenu[51];
     int i;
     int j;
-    i = buscarPrimerOcurrencia2(arrayMenues,cantidadMenues,0);
-    if(i == -1)
+    i = buscarPrimerOcurrencia2(arrayMenues,cantidadMenues,-1);
+    if(i != -1)
     {
         getNumber("Ingrese el nuevo menu","caracter incorrecto",1,cantidadMenues,1,cantidadMenues,auxMenu);
         strncpy(arrayMenues[i].descripcion,auxMenu,51);
@@ -416,11 +416,22 @@ void cargarMenu(eMenues arrayMenues[],int cantidadMenues,int valorOcupado,int ma
   *\brief Modifica un dato de array Menues, segun la opcion correspondiente. Trabaja con un menu de opciones.
   *\param El array menues, la cantidad de menues maxima, la opcion ingresada y la id que desea modificar.
 **/
-void modificarMenues(eMenues arrayMenues[],int cantidadElementos,int opcion,int id)
+void modificarMenues(eMenues arrayMenues[],int cantidadElementos)
 {
 
     int i;
+    int id;
     char auxMenu[51];
+    char auxOpcion[15];
+    char auxId[15];
+    int opcion;
+
+    mostrarMenues(arrayMenues,cantidadElementos);
+    getNumber("\n1:MOD_DESCRIPCION\n2:MOD_PRECIO\n3:SALIR\n","opcion incorrecto",1,3,1,2,auxOpcion);
+    getNumber("\nQue id desea modificar: ","caracter incorrecto",1,cantidadElementos,1,3,auxId);
+
+    id = atoi(auxId);
+    opcion = atoi(auxOpcion);
     for(i=0; i<cantidadElementos; i++)
     {
         if(id == arrayMenues[i].id)
@@ -431,6 +442,7 @@ void modificarMenues(eMenues arrayMenues[],int cantidadElementos,int opcion,int 
             case 1:
                 getName("ingrese nuevo Menu: ","caracter incorrecto",1,51,auxMenu);
                 strncpy(arrayMenues[i].descripcion,auxMenu,51);
+                printf("\nmodificacion exitosa");
                 break;
             case 2:
                 getNumber("ingrese el nuevo precio: ","caracter incorrecto",1,1000,1,5,auxMenu);

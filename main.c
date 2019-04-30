@@ -73,7 +73,7 @@ int main()
                 {
                 case 1:
                     mostrarListaEmpleados(arrayEmpleados,arraySector,QTY_EMPLEADOS,-1);
-                    getNumber("legajo de almuerzo","caracter incorrecto",1,QTY_EMPLEADOS,1,5,auxMemoria);
+                    getNumber("legajo de almuerzo: ","caracter incorrecto",1,QTY_EMPLEADOS,1,5,auxMemoria);
                     cargarAlmuerzo(idEmpleadoMenu,arrayEmpleados,arrayMenues,QTY_EMPLEADOS,atoi(auxMemoria),51);
                     break;
                 case 2:
@@ -84,14 +84,39 @@ int main()
 
             }
             case 3:
-                menu2(opcion2);
+                menu2(&opcion2);
                 switch(opcion2)
                 {
                     case 1:
                         cargarMenu(arrayMenues,QTY_MENUES,-1,51);
                         break;
+                    case 2:
+                        borrarMenues(arrayMenues,QTY_MENUES);
+                        break;
+                    case 3:
+                        modificarMenues(arrayMenues,QTY_MENUES);
+                        break;
+                    case 4:
+                        getNumber("\n1:Mostrar por precio descendente\n2:Mostrar por nombre ascendente"
+                                  ,"caracter incorrecto",1,3,1,3,auxMemoria);
+                        if(atoi(auxMemoria) == 1)
+                        {
+                            ordenarMenuesPrecio(arrayEmpleados,QTY_MENUES,auxMenues);
+                            mostrarMenues(arrayMenues,QTY_MENUES);
+                            break;
+                        }
+                        else if(atoi(auxMemoria)== 2)
+                        {
+                            ordenarMenuesDescripcion(arrayMenues,QTY_MENUES,auxMenues);
+                            mostrarMenues(arrayMenues,QTY_MENUES);
+                            break;
+                        }
 
                 }
+                case 4:
+                    mostrarSectores(arraySector,QTY_SECTORES);
+                    break;
+
 
 
 

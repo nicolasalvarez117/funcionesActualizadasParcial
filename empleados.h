@@ -89,7 +89,7 @@ void menu2(int *resultado);
 void menu3(int *resultado);
 //-----------------------------------------------------------------------------------------------
 void cargarMenu(eMenues arrayMenues[],int cantidadMenues,int valorOcupado,int maxCaracter);
-void modificarMenues(eMenues arrayMenues[],int cantidadElementos,int opcion,int id);
+void modificarMenues(eMenues arrayMenues[],int cantidadElementos);
 void borrarMenues(eMenues arrayMenues[], int cantidadElementos);
 //-----------------------------------------------------------------------------------------------
 void cargarAlmuerzo(eEmpleado_Menu idEmpleadoMenu[],eEmpleados arrayEmpleados[],eMenues arrayMenues[],
