@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "input.h"
+#include "imput.h"
 #include "empleados.h"
 #include "ordenamiento.h"
 
@@ -52,6 +52,25 @@ int buscarPrimerOcurrencia2(eMenues arrayMenues[],int cantidadDeElementos,int va
     }
     return -1;
 }
+
+/**
+  *\brief busca una igualdad entre dos datos pasados por parametro.
+  *\param datos de la estructura , la cantidad de elementos del array estructura y el valor que queremos encontrar.
+  *\return la posicion del valor encontrado, en caso de no encontrar el valor retorna -1.
+**/
+int buscarPrimerOcurrencia3(eEmpleados arrayEmpleados[],int cantidadDeElementos,int valor)
+{
+    int i;
+    for(i=0;i < cantidadDeElementos; i++)
+    {
+        if(arrayEmpleados[i].legajo == valor)
+        {
+            return i;
+            break;
+        }
+    }
+    return -1;
+}
 //------------------------INICIALIZAR DATOS-------------------------------------------
 /**
   *\brief inicializa los valores unicos de arrayEmpleado con LIBRE(-1) y el precio de menues que va a acumular.
@@ -64,6 +83,7 @@ void inicializarArrayEmpleados(eEmpleados arrayEmpleados[],int cantidadDeElement
     {
         arrayEmpleados[i].estado = LIBRE;
         arrayEmpleados[i].legajo = LIBRE;
+        arrayEmpleados[i].idMenu = LIBRE;
         arrayEmpleados[i].precioMenuAcumulado = 0;
     }
 }
@@ -123,7 +143,7 @@ void mostrarMenues(eMenues arrayMenues[],int cantidad)
     int i;
     for(i=0;i<cantidad;i++)
     {
-        printf("%d %s %d\n",arrayMenues[i].id,arrayMenues[i].descripcion,arrayMenues[i].precioMenu);
+        printf("%d %s %d\n",arrayMenues[i].id,arrayMenues[i].descripcion,arrayMenues[i].precio);
     }
 }
 //------------------ALTA , BAJA Y MODIFICACION-----------------------------------
@@ -153,8 +173,8 @@ void cargarEmpleado(eEmpleados arrayEmpleados[],
     i = buscarPrimerOcurrencia(arrayEmpleados,cantidadEmpleados,valorOcupado);
     if(i!=-1)
     {
-        getName("Ingrese Nombre: ","\ncaracter incorrecto\n",1,maxCaracter,3,arrayEmpleados[i].nombre);
-        getName("Ingrese Apellido: ","\ncaracter incorrecto\n",1,maxCaracter,3,arrayEmpleados[i].apellido);
+        getName("Ingrese Nombre: ","\ncaracter incorrecto\n",1,maxCaracter,arrayEmpleados[i].nombre);
+        getName("Ingrese Apellido: ","\ncaracter incorrecto\n",1,maxCaracter,arrayEmpleados[i].apellido);
         getSexo("Ingrese el sexo M o F: ","sexo incorrecto\n",&auxSexo);
         getNumber("ingrese el salario: ","caracter incorrecto",1,100000,1,15,auxSalario);
         getNumber("fecha de ingreso\nDia: ","caracter incorrecto",1,31,1,3,auxDia);
@@ -169,12 +189,12 @@ void cargarEmpleado(eEmpleados arrayEmpleados[],
         arrayEmpleados[i].t_Fecha.mes = atoi(auxMes);
         arrayEmpleados[i].t_Fecha.anio = atoi(auxAnio);
         arrayEmpleados[i].sueldoBruto = atof(auxSalario);
-        arrayEmpleados[i].legajo = auxLegajo;
+        arrayEmpleados[i].legajo = auxLegajo + 1;
         arrayEmpleados[i].estado = OCUPADO;
         idEmpleadoSector[i].idSector = atoi(auxSector);
         idEmpleadoSector[i].legajoEmpleado = atoi(auxLegajo);
         system("cls");
-        printf("\nAlta exitosa %c",auxSexo);
+        printf("\nAlta exitosa");
 
     }
     else
@@ -194,7 +214,7 @@ void borrarEmpleado(eEmpleados arrayEmpleados[], int cantidadElementos)
     int loEncontro = FALSE;
     char auxLegajo[20];
     int legajo;
-    getNumber("Ingrese el legajo a dar de baja: ","caracter incorrecto",1,cantidadElementos,1,5,3,auxLegajo);
+    getNumber("Ingrese el legajo a dar de baja: ","caracter incorrecto",1,cantidadElementos,1,5,auxLegajo);
     legajo = atoi(auxLegajo);
     for(i=0; i<cantidadElementos; i++)
     {
@@ -220,7 +240,7 @@ void borrarEmpleado(eEmpleados arrayEmpleados[], int cantidadElementos)
   *\brief Modifica un dato de array empleado, segun la opcion correspondiente. Trabaja con un menu de opciones.
   *\param El array empleados y sector, la cantidad de empleados, la opcion ingresada y el legajo que deseamos modificar.
 **/
-void modificarEmpleado(eEmpleados arrayEmpleados[],eSector arraySector[], int cantidadElementos,int opcion,int legajo)
+void modificarEmpleado(eEmpleados arrayEmpleados[],eSector arraySector[], int cantidadElementos,int opcion2,int legajo)
 {
 
     int i;
@@ -230,21 +250,21 @@ void modificarEmpleado(eEmpleados arrayEmpleados[],eSector arraySector[], int ca
         if(legajo == arrayEmpleados[i].legajo)
         {
 
-            switch(opcion)
+            switch(opcion2)
             {
             case 1:
-                getName("ingrese nuevo nombre: ","caracter incorrecto",1,51,3,auxNombre);
+                getName("ingrese nuevo nombre: ","caracter incorrecto",1,51,auxNombre);
                 strncpy(arrayEmpleados[i].nombre,auxNombre,51);
-                getName("Ingrese el nuevo apellido: ","caracter incorrecto",1,51,3,auxNombre);
+                getName("Ingrese el nuevo apellido: ","caracter incorrecto",1,51,auxNombre);
                 strncpy(arrayEmpleados[i].apellido,auxNombre,51);
                 break;
             case 2:
-                getNumber("ingrese el salario: ","caracter incorrecto",1,100000,1,15,3,auxNombre);
+                getNumber("ingrese el salario: ","caracter incorrecto",1,100000,1,15,auxNombre);
                 arrayEmpleados[i].sueldoBruto = atof(auxNombre);
                 printf("\nmodificacion exitosa");
                 break;
             case 3:
-                getNumber("ingrese el nuevo sector: ","caracter incorrecto",1,QTY_SECTORES,1,QTY_SECTORES,3,auxNombre);
+                getNumber("ingrese el nuevo sector: ","caracter incorrecto",1,QTY_SECTORES,1,QTY_SECTORES,auxNombre);
                 arrayEmpleados[i].idSector = atof(auxNombre);
                 break;
             }
@@ -280,7 +300,7 @@ void hardcodearDatosEmpleados(eEmpleados arrayEmpleados[])
         arrayEmpleados[i].estado = estado[i];
         arrayEmpleados[i].idSector = sector[i];
         strncpy(arrayEmpleados[i].nombre,nombres[i],50);
-        strncpy(arrayEmpleados[i].apellido,apellidos[i],50
+        strncpy(arrayEmpleados[i].apellido,apellidos[i],50);
         arrayEmpleados[i].t_Fecha.dia = dia[i];
         arrayEmpleados[i].t_Fecha.mes = mes[i];
         arrayEmpleados[i].t_Fecha.anio = anio[i];
@@ -303,7 +323,7 @@ void hardcodearDatosMenues(eMenues arrayMenues[])
     {
         arrayMenues[i].id = id[i];
         strcpy(arrayMenues[i].descripcion,nombres[i]);
-        arrayMenues[i].precioMenu = precio[i];
+        arrayMenues[i].precio = precio[i];
 
     }
 }
@@ -317,7 +337,7 @@ void hardcodearDatosSector(eSector arraySector[])
     int id[]={1,2,3,4,5};
     char nombres[][50]={"Contabilidad","RRHH","Ventas","Administracion","Limpieza"};
 
-    for(i=0; i<cantidadElementos; i++)
+    for(i=0; i<5; i++)
     {
         arraySector[i].idSector = id[i];
         strcpy(arraySector[i].descripcion,nombres[i]);
@@ -332,7 +352,7 @@ void menu(int *resultado)
 {
     int i;
     char aux[15];
-    getNumber("1:ALTA\n2:BAJA\n3:MODIFICAR\n4:LISTA ORDENADA\n5:MENUES\n6:SALIR: ","opcion incorrecta: ",1,6,1,2,aux);
+    getNumber("1:ALTA\n2:BAJA\n3:MODIFICAR\n4:LISTA ORDENADA\n5:SALIR: ","opcion incorrecta: ",1,5,1,2,aux);
     *resultado = atoi(aux);
 
 }
@@ -357,7 +377,7 @@ void menu3(int *resultado)
 {
     int i;
     char aux[15];
-    getNumber("1:ALTA DE ALMUERZO\n2:LISTA DE ALMUERZOS\n3:MODIFICAR\n4:SALIR: ","opcion incorrecta: ",1,4,1,2,aux);
+    getNumber("\n1:ALTA DE ALMUERZO\n2:LISTA DE ALMUERZOS\n3:SALIR\n: ","opcion incorrecta: ",1,3,1,2,aux);
     *resultado = atoi(aux);
 
 }
@@ -371,17 +391,20 @@ void cargarMenu(eMenues arrayMenues[],int cantidadMenues,int valorOcupado,int ma
     if(i == -1)
     {
         getNumber("Ingrese el nuevo menu","caracter incorrecto",1,cantidadMenues,1,cantidadMenues,auxMenu);
-        arrayMenues[i].descripcion = atoi(auxMenu);
+        strncpy(arrayMenues[i].descripcion,auxMenu,51);
         if(i)
         {
-             arrayMenues[i].id = arrayMenues[i-1] + 1;
+             arrayMenues[i].id = arrayMenues[i-1].id + 1;
+
         }
         else
         {
             arrayMenues[i].id = 1;
+
         }
         getNumber("Ingrese el precio del menu: ","precio incorrecto: ",1,1000,1,5,auxMenu);
         arrayMenues[i].precio = atoi(auxMenu);
+        printf("\nALTA EXITOSA");
     }
     else
     {
@@ -393,7 +416,7 @@ void cargarMenu(eMenues arrayMenues[],int cantidadMenues,int valorOcupado,int ma
   *\brief Modifica un dato de array Menues, segun la opcion correspondiente. Trabaja con un menu de opciones.
   *\param El array menues, la cantidad de menues maxima, la opcion ingresada y la id que desea modificar.
 **/
-void modificarMenues(eEmpleados arrayMenues[],int cantidadElementos,int opcion,int id)
+void modificarMenues(eMenues arrayMenues[],int cantidadElementos,int opcion,int id)
 {
 
     int i;
@@ -411,7 +434,7 @@ void modificarMenues(eEmpleados arrayMenues[],int cantidadElementos,int opcion,i
                 break;
             case 2:
                 getNumber("ingrese el nuevo precio: ","caracter incorrecto",1,1000,1,5,auxMenu);
-                arrayMenu[i].precio = atoi(auxMenu);
+                arrayMenues[i].precio = atoi(auxMenu);
                 printf("\nmodificacion exitosa");
                 break;
             }
@@ -423,7 +446,7 @@ void modificarMenues(eEmpleados arrayMenues[],int cantidadElementos,int opcion,i
   *\brief Hace una baja logica dentro de array Menues, si la id del menu existe, carga la id con 0.
   *\param el array empleados y la cantidad de elementos del array.
 **/
-void borrarMenues(eEmpleados arrayMenues[], int cantidadElementos)
+void borrarMenues(eMenues arrayMenues[], int cantidadElementos)
 {
 
     int i;
@@ -459,23 +482,31 @@ void cargarAlmuerzo(eEmpleado_Menu idEmpleadoMenu[],eEmpleados arrayEmpleados[],
                      int cantidadElementos,int legajo,int maxCaracter)
 {
     char auxAlmuerzo[51];
-    int i;
+    int i,j;
     char dia[10];
     char mes[10];
     char anio[10];
-    i = buscarPrimerOcurrencia(arrayEmpleados,QTY_EMPLEADOS,legajo);
+    i = buscarPrimerOcurrencia3(arrayEmpleados,QTY_EMPLEADOS,legajo);
     if(i != -1)
     {
-        getNumber("Ingrese el menu: ","caracter incorrecto",1,cantidadMenues,1,cantidadMenues,auxMenu);
-        getNumber("dia: ","caracter incorrecto",1,31,1,3,dia);
-        getNumber("mes: ","caracter incorrecto",1,12,1,3,mes);
-        getNumber("anio: ","caracter incorrecto",2000,2019,1,3,anio);
-        idEmpleadoMenu[i].id = atoi(auxMenu);
-        idEmpleadoMenu[i].id = legajo;
-        idEmpleadoMenu[i].dia = atoi(dia);
-        idEmpleadoMenu[i].mes  = atoi(mes);
-        idEmpleadoMenu[i].anio = atoi(anio);
-        printf("\nLos datos han sido cargados correctamente");
+        for(i=0;i<cantidadElementos;i++)
+        {
+            if(idEmpleadoMenu[i].idMenu == -1)
+            {
+            getNumber("Ingrese el menu: ","caracter incorrecto",1,cantidadElementos,1,cantidadElementos,auxAlmuerzo);
+            getNumber("dia: ","caracter incorrecto",1,31,1,3,dia);
+            getNumber("mes: ","caracter incorrecto",1,12,1,3,mes);
+            getNumber("anio: ","caracter incorrecto",2000,2019,1,6,anio);
+            arrayEmpleados[i].idMenu = atoi(auxAlmuerzo);
+            idEmpleadoMenu[i].idMenu = atoi(auxAlmuerzo);
+            idEmpleadoMenu[i].legajoEmpleado = legajo;
+            idEmpleadoMenu[i].dia = atoi(dia);
+            idEmpleadoMenu[i].mes  = atoi(mes);
+            idEmpleadoMenu[i].anio = atoi(anio);
+            printf("\nLos datos han sido cargados correctamente");
+            break;
+            }
+        }
 
     }
     else
@@ -502,7 +533,7 @@ void borrarAlmuerzo(eEmpleado_Menu idEmpleadoMenu[], int cantidadElementos)
         {
 
             idEmpleadoMenu[i].idMenu = 0;
-            idEmpleadoMenu[i].LegajoEmpleado = 0;
+            idEmpleadoMenu[i].legajoEmpleado = 0;
             printf("se a borrado el almuerzo");
             loEncontro = TRUE;
             break;
@@ -515,6 +546,27 @@ void borrarAlmuerzo(eEmpleado_Menu idEmpleadoMenu[], int cantidadElementos)
     }
 
 }
+
+void mostrarAlmuerzos(eEmpleados arrayEmpleado[],eMenues arrayMenues[],eEmpleado_Menu idEmpleadoMenu[],int cantidad)
+{
+    int i,j;
+    for(i=0;i<cantidad;i++)
+    {
+        if(idEmpleadoMenu[i].idMenu != -1)
+        {
+
+            printf("\nlegajo: %d %s %s %s %d",idEmpleadoMenu[i].legajoEmpleado,arrayEmpleado[idEmpleadoMenu[i].legajoEmpleado-1].nombre,
+                        arrayEmpleado[idEmpleadoMenu[i].legajoEmpleado-1].apellido,
+                        arrayMenues[idEmpleadoMenu[i].idMenu-1].descripcion,
+                        arrayMenues[idEmpleadoMenu[i].idMenu-1].precio);
+
+            printf("\ndia: %d mes: %d anio: %d",idEmpleadoMenu[i].dia,idEmpleadoMenu[i].mes,idEmpleadoMenu[i].anio);
+
+
+        }
+    }
+}
+
 
 
 

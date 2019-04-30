@@ -46,7 +46,6 @@ void getName(char *msg,char *msgError,int minimo,int maximo,char *resultado)
     if(msg != NULL &&
        msgError != NULL &&
        minimo<maximo &&
-       reintentos >= 0&&
        resultado != NULL)
     {
         do {
@@ -111,12 +110,12 @@ void getNumber(char *msg,char *msgError,int desde,int hasta,int minimo,int maxim
     if(msg != NULL &&
        msgError != NULL &&
        desde < hasta &&
-       minimo < maximo &&
-       resultado != NULL)
+       minimo < maximo)
     {
        do
        {
-            if(!getString(msg,msgError,minimo,maximo,buffer))
+            printf(msg);
+            if(!getString(minimo,maximo,buffer))
             {
                 if(isValidNumber(buffer))
                 {

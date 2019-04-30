@@ -15,6 +15,9 @@ typedef struct
 {
   int idMenu;
   int legajoEmpleado;
+  int dia;
+  int mes;
+  int anio;
 }eEmpleado_Menu;
 
 
@@ -34,7 +37,7 @@ typedef struct
 {
     int id;
     int empleadoLegajo;
-    int precioMenu;
+    int precio;
     char descripcion[50];
 
 }eMenues;
@@ -58,6 +61,7 @@ typedef struct
 //------------------------------------------------------------------------------------
 int buscarPrimerOcurrencia(eEmpleados arrayEmpleados[],int cantidadDeElementos,int valor);
 int buscarPrimerOcurrencia2(eMenues arrayMenues[],int cantidadDeElementos,int valor);
+int buscarPrimerOcurrencia3(eEmpleados arrayEmpleados[],int cantidadDeElementos,int valor);
 //-------------------------------------------------------------------------------------
 void inicializarArrayEmpleados(eEmpleados arrayEmpleados[],int cantidadDeElementos);
 void inicializarArrayMenues(eMenues arrayMenues[],int cantidadDeElementos);
@@ -85,12 +89,14 @@ void menu2(int *resultado);
 void menu3(int *resultado);
 //-----------------------------------------------------------------------------------------------
 void cargarMenu(eMenues arrayMenues[],int cantidadMenues,int valorOcupado,int maxCaracter);
-void modificarMenues(eEmpleados arrayMenues[],int cantidadElementos,int opcion,int id);
-void borrarMenues(eEmpleados arrayMenues[], int cantidadElementos);
+void modificarMenues(eMenues arrayMenues[],int cantidadElementos,int opcion,int id);
+void borrarMenues(eMenues arrayMenues[], int cantidadElementos);
 //-----------------------------------------------------------------------------------------------
 void cargarAlmuerzo(eEmpleado_Menu idEmpleadoMenu[],eEmpleados arrayEmpleados[],eMenues arrayMenues[],
                      int cantidadElementos,int legajo,int maxCaracter);
 void borrarAlmuerzo(eEmpleado_Menu idEmpleadoMenu[], int cantidadElementos);
+//----------------------------------------------------------------------------
+void mostrarAlmuerzos(eEmpleados arrayEmpleado[],eMenues arrayMenues[],eEmpleado_Menu idEmpleadoMenu[],int cantidad);
 
 
 

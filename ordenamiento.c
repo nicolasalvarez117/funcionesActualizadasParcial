@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "input.h"
+#include "imput.h"
 #include "empleados.h"
 #include "ordenamiento.h"
 
@@ -35,36 +35,6 @@ void ordenarEmpleadosApellido(eEmpleados arrayEmpleados[],int cantidadElementos,
                 }
 }
 
-/**
-  *\brief Ordena por nombre ascendente el array de empleados.
-  *\param el array a ordenar, la cantidad de elementos, y un auxiliar para hacer el movimiento de lugares.
-**/
-void ordenarEmpleadosApellido(eEmpleados arrayEmpleados[],int cantidadElementos,eEmpleados auxEmpleados)
-{
-    int i,j;
-
-    for(i=0; i < cantidadElementos - 1; i++)
-                {
-                    if(arrayEmpleados[i].estado == -1)
-                    {
-                        continue;
-                    }
-                    for(j=i+1; j < cantidadElementos; j++)
-                    {
-                        if(arrayEmpleados[j].estado == -1)
-                        {
-                            continue;
-                        }
-                        if(strcmp(arrayEmpleados[i].nombre,arrayEmpleados[j].nombre) > 0)
-                        {
-                            auxEmpleados = arrayEmpleados[j];
-                            arrayEmpleados[j] = arrayEmpleados[i];
-                            arrayEmpleados[i] = auxEmpleados;
-
-                        }
-                    }
-                }
-}
 
 /**
   *\brief Ordena por precio descendente el array de Menus.
