@@ -114,7 +114,7 @@ void mostrarListaEmpleados(eEmpleados arrayEmpleados[],eSector arraySector[], in
     {
         if(arrayEmpleados[i].estado == 1)
         {
-            printf("legajo: %d %s %s %c",arrayEmpleados[i].legajo,arrayEmpleados[i].nombre,arrayEmpleados[i].apellido,arrayEmpleados[i].sexoEmpleado);
+            printf("\nlegajo: %d %s %s %c",arrayEmpleados[i].legajo,arrayEmpleados[i].nombre,arrayEmpleados[i].apellido,arrayEmpleados[i].sexoEmpleado);
             printf(" %.2f %s\n",arrayEmpleados[i].sueldoBruto,arraySector[arrayEmpleados[i].idSector-1].descripcion);
 
         }
@@ -143,7 +143,7 @@ void mostrarMenues(eMenues arrayMenues[],int cantidad)
     int i;
     for(i=0;i<cantidad;i++)
     {
-        printf("%d %s %d\n",arrayMenues[i].id,arrayMenues[i].descripcion,arrayMenues[i].precio);
+        printf("\n%d %s %d\n",arrayMenues[i].id,arrayMenues[i].descripcion,arrayMenues[i].precio);
     }
 }
 //------------------ALTA , BAJA Y MODIFICACION-----------------------------------
@@ -364,7 +364,7 @@ void menu2(int *resultado)
 {
     int i;
     char aux[15];
-    getNumber("1:ALTA\n2:BAJA\n3:MODIFICAR\n4:LISTA ORDENADA\n5:SALIR: ","opcion incorrecta: ",1,5,1,2,aux);
+    getNumber("\n1:ALTA\n2:BAJA\n3:MODIFICAR\n4:LISTA ORDENADA\n5:SALIR: ","opcion incorrecta: ",1,5,1,2,aux);
     *resultado = atoi(aux);
 
 }
@@ -390,7 +390,7 @@ void cargarMenu(eMenues arrayMenues[],int cantidadMenues,int valorOcupado,int ma
     i = buscarPrimerOcurrencia2(arrayMenues,cantidadMenues,-1);
     if(i != -1)
     {
-        getNumber("Ingrese el nuevo menu","caracter incorrecto",1,cantidadMenues,1,cantidadMenues,auxMenu);
+        getName("Ingrese el nuevo menu: ","caracter incorrecto",1,cantidadMenues,auxMenu);
         strncpy(arrayMenues[i].descripcion,auxMenu,51);
         if(i)
         {
@@ -465,6 +465,7 @@ void borrarMenues(eMenues arrayMenues[], int cantidadElementos)
     int loEncontro = FALSE;
     char auxMenu[20];
     int id;
+    mostrarMenues(arrayMenues,QTY_MENUES);
     getNumber("Ingrese la id del menu a dar de baja: ","caracter incorrecto",1,cantidadElementos,1,5,auxMenu);
     id = atoi(auxMenu);
     for(i=0; i<cantidadElementos; i++)
@@ -472,7 +473,7 @@ void borrarMenues(eMenues arrayMenues[], int cantidadElementos)
         if(id == arrayMenues[i].id)
         {
 
-            arrayMenues[i].id = 0;
+            arrayMenues[i].id = -1;
             printf("Baja exitosa");
             loEncontro = TRUE;
             break;

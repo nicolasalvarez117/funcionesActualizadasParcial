@@ -1,0 +1,40 @@
+# depslib dependency file v1.0
+1556718729 source:c:\users\administrador\documents\nico projecto\funcionesactualizadasparcial-master\nicocapo\empleados.c
+	<stdio.h>
+	<stdlib.h>
+	"imput.h"
+	"empleados.h"
+	"ordenamiento.h"
+
+1556585926 c:\users\administrador\documents\nico projecto\funcionesactualizadasparcial-master\nicocapo\imput.h
+
+1556585926 c:\users\administrador\documents\nico projecto\funcionesactualizadasparcial-master\nicocapo\empleados.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1556585926 c:\users\administrador\documents\nico projecto\funcionesactualizadasparcial-master\nicocapo\ordenamiento.h
+
+1556585926 source:c:\users\administrador\documents\nico projecto\funcionesactualizadasparcial-master\nicocapo\imput.c
+	<stdio.h>
+	<stdlib.h>
+	"imput.h"
+	"empleados.h"
+	"ordenamiento.h"
+	<string.h>
+	<ctype.h>
+
+1556585926 source:c:\users\administrador\documents\nico projecto\funcionesactualizadasparcial-master\nicocapo\ordenamiento.c
+	<stdio.h>
+	<stdlib.h>
+	"imput.h"
+	"empleados.h"
+	"ordenamiento.h"
+
+1556717310 source:c:\users\administrador\documents\nico projecto\funcionesactualizadasparcial-master\nicocapo\main.c
+	<stdio.h>
+	<stdlib.h>
+	"empleados.h"
+	"imput.h"
+	"ordenamiento.h"
+

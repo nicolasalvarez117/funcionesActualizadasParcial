@@ -35,7 +35,7 @@ int main()
 
     do
     {
-
+       printf("------------------MENU PRINCIPAL------------------------");
       getNumber("\n1:EMPLEADOS\n2:ALMUERZOS\n3:MENUES\n4:SECTOR\n5:SALIR\n","opcion incorrecta",1,5,1,2,auxOpcion);
       opcion = atoi(auxOpcion);
       switch(opcion)
@@ -64,9 +64,12 @@ int main()
                 modificarEmpleado(arrayEmpleados,arraySector,QTY_EMPLEADOS,opcion2,atoi(auxMemoria));
                 break;
             }
+            break;
         }
         case 2:
             {
+                system("cls");
+                printf("------------------MENU ALMUERZOS------------------------");
                 mostrarMenues(arrayMenues,QTY_MENUES);
                 menu3(&opcion2);
                 switch(opcion2)
@@ -81,9 +84,11 @@ int main()
                     break;
 
                 }
-
+                break;
             }
-            case 3:
+        case 3:
+                system("cls");
+                printf("------------------MENU MENUES------------------------");
                 menu2(&opcion2);
                 switch(opcion2)
                 {
@@ -103,19 +108,27 @@ int main()
                         {
                             ordenarMenuesPrecio(arrayEmpleados,QTY_MENUES,auxMenues);
                             mostrarMenues(arrayMenues,QTY_MENUES);
-                            break;
+
                         }
                         else if(atoi(auxMemoria)== 2)
                         {
                             ordenarMenuesDescripcion(arrayMenues,QTY_MENUES,auxMenues);
                             mostrarMenues(arrayMenues,QTY_MENUES);
-                            break;
                         }
+                        break;
+                    case 5:
+                        break;
 
                 }
-                case 4:
-                    mostrarSectores(arraySector,QTY_SECTORES);
-                    break;
+                break;
+        case 4:
+            {
+
+                mostrarSectores(arraySector,QTY_SECTORES);
+                break;
+            }
+            break;
+
 
 
 
